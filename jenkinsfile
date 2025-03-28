@@ -1,7 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'maven'  
+        maven 'maven'  // Ensure Maven is installed and configured in Jenkins
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-            bat 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
         stage('Test') {
@@ -22,12 +23,9 @@ pipeline {
             steps {
                 script {
                     def output = bat(script: 'java -jar target/simple-java-project-1.0-SNAPSHOT.jar', returnStdout: true).trim()
-
-                  
                     echo "Output from JAR: ${output}"
                 }
             }
         }
     }
-}
 }
